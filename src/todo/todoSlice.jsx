@@ -1,24 +1,17 @@
 import { createSlice , nanoid } from "@reduxjs/toolkit";
 
-const initialState = {
-  todos : [{id : 1 ,text: "nutan"}]  
-}
-
 export const todoSlice =createSlice({
     name:'todo',
-    initialState,
+    initialState:[],
     reducers:{
-        addTodo:(state ,action)=>{
-            const todo ={
-                id:nanoid(),
-                text: action.payload
-            }
-            state.todos.push(todo)
-        },
-        removeTodo:(state ,action)=>{
-            state.todos=state.todos.filter((todo)=>todo.id!== action.payload)
-        }  
-        
+        addTodo: (state, action) => {
+            const newTodo = {
+                id: nanoid(),
+                text: action.payload.text,
+            };
+              state.push(newTodo);
+          },
+       
     }
 })
 
