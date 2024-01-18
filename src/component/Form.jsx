@@ -1,24 +1,8 @@
 
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addTodo ,editTodo } from "../todo/todoSlice";
+import React from "react";
 
-function Form() {
+function Form({input,setInput,handleSubmit}) {
 
-  const [input, setInput] = useState("");
-  const dispatch = useDispatch();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  
-    if (input.trim() !== "") {
-      dispatch(addTodo({ text: input }));
-      setInput("");
-    }
-  };
-  const handleEdit = (todo) => {
-    dispatch(editTodo({ id: todo.id, newText: "Updated Text" }));
-  };
 
   return (
     <form
@@ -41,5 +25,4 @@ function Form() {
     </form>
   );
 }
-export { handleEdit };
 export default Form;
