@@ -1,16 +1,14 @@
-import React from 'react'
-import Form from './component/Form'
-import List from './component/List'
+
+import React from 'react';
+import TodoApp from './TodoApp/TodoApp';
 
 function App() {
+
   return (
-    <>
-    <div className='w-[60%] max-lg:[100%] max-sm:w-[100%] overflow-y-hidden m-auto pb-10'>
-      <Form/>
-      <List/>
-      </div>
-    </>
-  )
+    <div>
+    <TodoApp/>
+    </div>
+  );
 }
 
-export default App
+export default App;

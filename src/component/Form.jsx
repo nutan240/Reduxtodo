@@ -1,8 +1,10 @@
+
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addTodo } from "../todo/todoSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addTodo ,editTodo } from "../todo/todoSlice";
 
 function Form() {
+
   const [input, setInput] = useState("");
   const dispatch = useDispatch();
 
@@ -14,10 +16,14 @@ function Form() {
       setInput("");
     }
   };
+  const handleEdit = (todo) => {
+    dispatch(editTodo({ id: todo.id, newText: "Updated Text" }));
+  };
+
   return (
     <form
       onSubmit={handleSubmit}
-      className="mb-5 overflow-y-hidden mt-20 w-[100%] whitespace-nowrap"
+      className="mb-5 overflow-y-hidden mt-20 w-[100%] "
     >
       <input
         className={`border border-slate-300 w-[86%] rounded-md py-3 pl-4 pr-3 focus:outline-none `}
@@ -35,5 +41,5 @@ function Form() {
     </form>
   );
 }
-
+export { handleEdit };
 export default Form;

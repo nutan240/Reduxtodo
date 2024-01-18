@@ -1,10 +1,18 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import EditIcon from '@mui/icons-material/Edit';
+import { useDispatch, useSelector } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { removeTodo,  } from '../todo/todoSlice';
+import { handleEdit } from './Form'
 
 function List() {
+  const dispatch = useDispatch();
   const todos = useSelector(state => state);
+
+  const handleDelete = (id) => {
+    dispatch(removeTodo(id));
+  };
+
 
   return (
     <>
@@ -17,8 +25,16 @@ function List() {
           >
             <div className='text-balance break-words'>{todo.text}</div>
             <div>
-            <DeleteForeverIcon/>
-            <EditIcon/>
+              <FontAwesomeIcon
+                icon={faEdit}
+                className="cursor-pointer mr-2 text-blue-500"
+                onClick={() => handleEdit(todo)}
+              />
+              <FontAwesomeIcon
+                icon={faTrash}
+                className="cursor-pointer text-red-500"
+                onClick={() => handleDelete(todo.id)}
+              />
             </div>
           </div>
         ))}
