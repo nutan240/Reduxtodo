@@ -1,17 +1,19 @@
 import React ,{useState} from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {useDispatch } from "react-redux";
+import {useDispatch ,useSelector } from "react-redux";
 import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
-import { filterTodo  } from "../todo/todoSlice";
+import { filterTodo  } from "../redux/todoSlice";
 
-function List({ handleEdit, handleDelete, todos, handleCheckboxChange   }) {
+function List({ handleEdit, handleDelete, handleCheckboxChange   }) {
   const dispatch = useDispatch();
   const [sortTodo ,setSortTodo] =useState('all')
+
 
   const handleFilterClick = (filterType) => {
     setSortTodo(filterType);
     dispatch(filterTodo(filterType));
   };
+  const todos = useSelector((state) => state); 
 
   return (
     <>
