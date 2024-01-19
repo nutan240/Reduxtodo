@@ -1,4 +1,4 @@
-// todoSlice.js
+
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 export const todoSlice = createSlice({
@@ -11,17 +11,20 @@ export const todoSlice = createSlice({
         text: action.payload.text,
         completed: false,
       };
+      console.log(state , action ,'edrftyghuijkol')
       state.push(newTodo);
     },
     removeTodo: (state, action) => {
       return state.filter((todo) => todo.id !== action.payload);
     },
+    
     editTodo: (state, action) => {
-      const { id, newText } = action.payload;
-      const todoToEdit = state.find((todo) => todo.id === id);
+      const { newText } = action.payload;
+      const todoToEdit = state.find((todo) => todo.id ===action.payload.id );
       if (todoToEdit) {
-        todoToEdit.text = newText;
+        todoToEdit.text =newText;
       }
+      console.log( newText,action,"rrrrrrrrrrrrrrrrrrrrrrrr");
     },
     handleCheck: (state, action) => {
       const updatedCheckbox = state.map((item) =>
@@ -30,10 +33,27 @@ export const todoSlice = createSlice({
           : item
       );
       return updatedCheckbox;
+      
+    },
+    
+    
+
+    filterTodo: (state, action) => {
+      return state.filter((todo) => {
+        switch (action.payload) {
+          case "complete":
+            return todo.completed === true;
+          case "incomplete":
+            return todo.completed === false;
+            case "all":
+              return todo
+          
+        }
+      });
     },
   },
 });
 
-export const { addTodo, removeTodo, editTodo, handleCheck } = todoSlice.actions;
+export const { addTodo, removeTodo, editTodo, handleCheck ,filterTodo } = todoSlice.actions;
 
 export default todoSlice.reducer;

@@ -3,11 +3,12 @@ import React, { useState } from "react";
 import Form from "../component/Form";
 import List from "../component/List";
 import { useDispatch, useSelector } from "react-redux";
-import { addTodo, removeTodo, editTodo ,handleCheck } from "../todo/todoSlice";
+import { addTodo, removeTodo, editTodo ,handleCheck  } from "../todo/todoSlice";
 
 function TodoApp() {
   const [input, setInput] = useState("");
   const [editingId, setEditingId] = useState(null); 
+  
 
   const dispatch = useDispatch();
   const todos = useSelector((state) => state); 
@@ -23,7 +24,6 @@ function TodoApp() {
       } else {
         dispatch(addTodo({ text: input }));
       }
-
       setInput("");
     }
   };
@@ -35,13 +35,18 @@ function TodoApp() {
   const handleEdit = (todo) => {
     setInput(todo.text);
     setEditingId(todo.id);
+    console.log(todo ,"sedrftgyhujioklp;");
+    console.log(setInput ,'wesrdtfyguhijokl')
   };
+const handleCheckboxChange=(id)=>{
+    dispatch(handleCheck({id}))
+}
 
   return (
-    <div>
+    <div  className="w-[70%] m-auto">
       <Form setInput={setInput} input={input} handleSubmit={handleSubmit} />
       <List todos={todos} handleEdit={handleEdit} handleDelete={handleDelete}
-
+      handleCheckboxChange={handleCheckboxChange} 
       />
     </div>
   );

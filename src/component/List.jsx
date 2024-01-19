@@ -1,31 +1,44 @@
-import React from "react";
+import React ,{useState} from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {useDispatch } from "react-redux";
 import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
+import { filterTodo  } from "../todo/todoSlice";
 
-function List({ handleEdit, handleDelete, todos, handleCheckboxChange }) {
+function List({ handleEdit, handleDelete, todos, handleCheckboxChange   }) {
+  const dispatch = useDispatch();
+  const [sortTodo ,setSortTodo] =useState('all')
+
+  const handleFilterClick = (filterType) => {
+    setSortTodo(filterType);
+    dispatch(filterTodo(filterType));
+  };
+
   return (
     <>
+    {todos.length > 0 &&
       <div>
             <h1 className="font-medium text-2xl font-serif mb-1">Todo List</h1>
+            <div className="flex gap-4 mb-4">
+            <button onClick={() => handleFilterClick('all')}>all</button>
+            <button onClick={() => handleFilterClick('complete')}>completed</button>
+            <button onClick={() => handleFilterClick('incomplete')}>Incompleted</button>
+          </div>
 
         {todos.map((todo) => (
 
-          <div
-            className=""
-            key={todo.id}
-          >
-            <div className="mt-4  items-center w-[96%] px-4 py-2 border-2 rounded flex justify-between">
+          <div key={todo.id}>
+            <div className="mt-4  items-center  px-4 py-2 border-2 rounded flex justify-between">
               <input
                 type="checkbox"
                 checked={todo.completed}
                 onChange={() => handleCheckboxChange(todo.id)}
               />
 
-              <div className="text-balance break-words  w-[1200px]">
+              <div className="text-balance break-words  w-[800px]">
                 {todo.text}
               </div>
               <div>
-                <FontAwesomeIcon
+              <FontAwesomeIcon
                   icon={faEdit}
                   className="cursor-pointer mr-2 text-blue-500"
                   onClick={() => handleEdit(todo)}
@@ -35,12 +48,13 @@ function List({ handleEdit, handleDelete, todos, handleCheckboxChange }) {
                   className="cursor-pointer text-red-500"
                   onClick={() => handleDelete(todo.id)}
                 />
-              </div>
               {todo.completed && <button>completed</button>}
+              </div>  
             </div>
           </div>
         ))}
       </div>
+     }
     </>
   );
 }
