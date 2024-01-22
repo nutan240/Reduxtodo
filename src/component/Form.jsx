@@ -20,8 +20,8 @@ function Form({
       />
       {isEditing ? (
         <>
-          <Button onSubmit={() => handleUpdate} title={"Update"} />
-          <Button onSubmit={() => handleCancel} title={"Cancel"} />
+          <Button onSubmit={() => handleUpdate()} title={"Update"} />
+          <Button onSubmit={() => handleCancel()} title={"Cancel"} />
         </>
       ) : (
           <Button onSubmit={handleSubmit} title={"Submit"} />

@@ -46,7 +46,6 @@ function TodoApp() {
       setInput("");
     }
   };
-
   const handleCancel = () => {
     setInput("");
     setEditingId(null);

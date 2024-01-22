@@ -13,7 +13,9 @@ const List = ({
 }) => {
   const dispatch = useDispatch();
   const visibleTodos = useSelector(selectVisibleTodos);
-  console.log("Visible Todos:", visibleTodos);
+
+  const alltodos = useSelector(state=>state.todo.todos);
+  console.log(alltodos,'dfghjkl');
 
   const handleFilterClick = (filter) => {
     dispatch(setFilter(filter));
@@ -22,7 +24,7 @@ const List = ({
 
   return (
     <div>
-      {visibleTodos.length > 0 && (
+      {alltodos.length > 0 && (
         <div>
           <h1 className="font-medium text-2xl font-serif mb-1">Todo List</h1>
           <div className="flex gap-4 mb-4">
