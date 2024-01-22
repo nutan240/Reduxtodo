@@ -22,10 +22,12 @@ export const todoSlice = createSlice({
     },
     editTodo: (state, action) => {
       const { newText } = action.payload;
+      console.log(newText,'nutan kumari');
       const todoToEdit = state.todos.find(
         (todo) => todo.id === action.payload.id
       );
-      if (todoToEdit) {
+      
+      if (todoToEdit )  {
         todoToEdit.text = newText;
       }
     },

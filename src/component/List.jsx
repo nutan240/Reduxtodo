@@ -48,48 +48,49 @@ const List = ({
         </div>
       )}
 
-      <div className="h-[300px] overflow-y-scroll">
-      {visibleTodos.map((todo) => (
-        <div key={todo.id}>
-          <div
-            className={`border ${
-              editingId !== null && todo.id === editingId
-                ? "border-blue-300 border-4"
-                : "border-blue-300"
-            }
+      <div className="h-[300px] overflow-y-scroll  scrollbar-hide md:scrollbar-default" style={{msOverflowStyle:'none',scrollbarWidth:'none'}}>
+        {visibleTodos.map((todo) => (
+          <div key={todo.id}>
+            <div
+              className={`border ${
+                editingId !== null && todo.id === editingId
+                  ? "border-blue-300 border-4"
+                  : "border-blue-300"
+              }
                   rounded-md pl-2 pr-4 py-1 text-balance break-words mb-2 mt-1  flex gap-4`}
-          >
-            <Input
-              type="checkbox"
-              checked={todo.completed}
-              handleInputChange={() => handleCheckboxChange(todo.id)}
-            />
+            >
+              <Input
+                type="checkbox"
+                checked={todo.completed}
+                handleInputChange={() => handleCheckboxChange(todo.id)}
+              />
 
-            <div className="text-balance  truncate break-all w-[90%] ">{todo.text}</div>
-            <div className="flex items-center gap-2 float-right">
-              <FontAwesomeIcon
-                icon={faEdit}
-                className="cursor-pointer mr-2 text-blue-500"
-                onClick={() => handleEdit(todo)}
-              />
-              <FontAwesomeIcon
-                icon={faTrash}
-                className="cursor-pointer text-red-500"
-                onClick={() => handleDelete(todo.id)}
-              />
-              <div>
-                {todo.completed && (
-                  <button className="border-2 bg-green-200 inline-block whitespace-nowrap rounded-full bg-success-100 px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none text-success-700">
-                    completed
-                  </button>
-                )}
+              <div className="text-balance  truncate break-all w-[90%] ">
+                {todo.text}
+              </div>
+              <div className="flex items-center gap-2 float-right">
+                <FontAwesomeIcon
+                  icon={faEdit}
+                  className="cursor-pointer mr-2 text-blue-500"
+                  onClick={() => handleEdit(todo)}
+                />
+                <FontAwesomeIcon
+                  icon={faTrash}
+                  className="cursor-pointer text-red-500"
+                  onClick={() => handleDelete(todo.id)}
+                />
+                <div>
+                  {todo.completed && (
+                    <button className="border-2 bg-green-200 inline-block whitespace-nowrap rounded-full bg-success-100 px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none text-success-700">
+                      completed
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
       </div>
-      
     </div>
   );
 };

@@ -12,7 +12,7 @@ import {
 function TodoApp() {
   const [input, setInput] = useState("");
   const [editingId, setEditingId] = useState(null);
-  const [error, seterror] = useState(false)
+  const [error, setError] = useState(false)
 
   const dispatch = useDispatch();
 
@@ -40,12 +40,16 @@ function TodoApp() {
   };
 
   const handleUpdate = () => {
-    if (editingId !== null) {
+    if (editingId !== null && input.trim() !== "") {
       dispatch(editTodo({ id: editingId, newText: input }));
       setEditingId(null);
       setInput("");
+      setError(false);
+    } else {
+      setError(true); 
     }
   };
+
   const handleCancel = () => {
     setInput("");
     setEditingId(null);
