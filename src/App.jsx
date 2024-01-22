@@ -5,7 +5,7 @@ import TodoApp from './pages/todo/index';
 function App() {
 
   return (
-    <div>
+    <div className='h-screen' >
     <TodoApp/>
     </div>
   );

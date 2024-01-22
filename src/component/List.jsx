@@ -1,46 +1,66 @@
-import React ,{useState} from "react"
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {useDispatch ,useSelector } from "react-redux";
 import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
-import { filterTodo  } from "../redux/todoSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { selectVisibleTodos, setFilter } from "../redux/todoSlice";
+import Button from "./Button";
 
-function List({ handleEdit, handleDelete, handleCheckboxChange   }) {
+const List = ({
+  handleEdit,
+  handleDelete,
+  handleCheckboxChange,
+  editingId,
+}) => {
   const dispatch = useDispatch();
-  const [sortTodo ,setSortTodo] =useState('all')
+  const visibleTodos = useSelector(selectVisibleTodos);
+  console.log("Visible Todos:", visibleTodos);
 
-
-  const handleFilterClick = (filterType) => {
-    setSortTodo(filterType);
-    dispatch(filterTodo(filterType));
+  const handleFilterClick = (filter) => {
+    dispatch(setFilter(filter));
+    console.log("Filter state after dispatch:", filter);
   };
-  const todos = useSelector((state) => state); 
 
   return (
-    <>
-    {todos.length > 0 &&
-      <div>
-            <h1 className="font-medium text-2xl font-serif mb-1">Todo List</h1>
-            <div className="flex gap-4 mb-4">
-            <button onClick={() => handleFilterClick('all')}>all</button>
-            <button onClick={() => handleFilterClick('complete')}>completed</button>
-            <button onClick={() => handleFilterClick('incomplete')}>Incompleted</button>
+    <div>
+      {visibleTodos.length > 0 && (
+        <div>
+          <h1 className="font-medium text-2xl font-serif mb-1">Todo List</h1>
+          <div className="flex gap-4 mb-4">
+            <Button onSubmit={() => handleFilterClick("all")} title={"all"} />
+            <Button
+              onSubmit={() => handleFilterClick("complete")}
+              title={"complete"}
+            />
+            <Button
+              onSubmit={() => handleFilterClick("incomplete")}
+              title={"incomplete"}
+            />
           </div>
+        </div>
+      )}
 
-        {todos.map((todo) => (
-
+      {visibleTodos.length > 0 ? (
+        visibleTodos.map((todo) => (
           <div key={todo.id}>
-            <div className="mt-4  items-center  px-4 py-2 border-2 rounded flex justify-between">
+            <div
+              className={`border ${
+                editingId !== null && todo.id === editingId
+                  ? "border-blue-300 border-4"
+                  : "border-blue-300"
+              }
+                    rounded-md pl-2 pr-4 py-1 text-balance break-words mb-2 mt-1  flex gap-4`}
+            >
               <input
                 type="checkbox"
                 checked={todo.completed}
                 onChange={() => handleCheckboxChange(todo.id)}
               />
 
-              <div className="text-balance break-words  w-[800px]">
+              <div className="text-balance  truncate break-all ">
                 {todo.text}
               </div>
-              <div>
-              <FontAwesomeIcon
+              <div className="flex items-center gap-2 float-right">
+                <FontAwesomeIcon
                   icon={faEdit}
                   className="cursor-pointer mr-2 text-blue-500"
                   onClick={() => handleEdit(todo)}
@@ -50,15 +70,23 @@ function List({ handleEdit, handleDelete, handleCheckboxChange   }) {
                   className="cursor-pointer text-red-500"
                   onClick={() => handleDelete(todo.id)}
                 />
-              {todo.completed && <button>completed</button>}
-              </div>  
+                <div>
+                  {todo.completed && (
+                    <button className="border-2 bg-green-200 inline-block whitespace-nowrap rounded-full bg-success-100 px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none text-success-700">
+                      completed
+                    </button>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
-        ))}
-      </div>
-     }
-    </>
+        ))
+      ) : (
+        <p></p>
+      )}
+    </div>
+    
   );
-}
+};
 
 export default List;
