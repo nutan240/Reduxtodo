@@ -12,12 +12,12 @@ import {
 function TodoApp() {
   const [input, setInput] = useState("");
   const [editingId, setEditingId] = useState(null);
+  const [error, seterror] = useState(false)
 
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (input.trim() !== "") {
       dispatch(addTodo(input));
       setInput("");
@@ -56,6 +56,7 @@ function TodoApp() {
       <Form
         setInput={setInput}
         input={input}
+        error={error}
         handleSubmit={handleSubmit}
         handleUpdate={handleUpdate}
         handleCancel={handleCancel}

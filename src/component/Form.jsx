@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "./Button";
+import Input from "./Input";
 
 function Form({
   input,
@@ -7,17 +8,20 @@ function Form({
   handleSubmit,
   handleUpdate,
   handleCancel,
-  isEditing,
+  isEditing,error
 }) {
   return (
-    <form onSubmit={handleSubmit} className="overflow-y-hidden pt-20 w-[100%]">
-      <input
-        className={`border border-slate-300 w-[100%] rounded-md py-3 pl-4 mb-3 pr-3 focus:outline-none`}
-        type="text"
-        placeholder="Enter a Todo..."
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-      />
+    <form className="overflow-y-hidden pt-20 w-[100%]">
+     
+     <Input 
+       width="w-[97%]"
+       handleInputChange={(e) => setInput(e.target.value)}
+       todoinput={input}
+     />
+      <div className="
+         h-4 ">{input === "" && error && isEditing ? (
+          <h6 className="text-red-600 h-3 pb-2 text-sm/[10px] . ">please Enter todo.......</h6>
+        ) : null}</div>
       {isEditing ? (
         <>
           <Button onSubmit={() => handleUpdate()} title={"Update"} />
