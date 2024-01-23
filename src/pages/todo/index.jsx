@@ -22,6 +22,8 @@ function TodoApp() {
   };
   const handleDelete = (id) => {
     dispatch(removeTodo(id));
+    setInput("");
+    setEditingId(null);
   };
   const handleEdit = (todo) => {
     setInput(todo.text);

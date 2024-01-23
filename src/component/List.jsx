@@ -15,15 +15,16 @@ const List = ({
   const dispatch = useDispatch();
   const visibleTodos = useSelector(selectVisibleTodos);
   const allTodos = useSelector((state) => state.todo.todos);
+  const filter = useSelector((state) => state.todo.filter);
 
   const handleFilterClick = (filter) => {
     dispatch(setFilter(filter));
   };
 
-  const filterButtons = [
-    { title: "all", filter: "all" },
-    { title: "complete", filter: "complete" },
-    { title: "incomplete", filter: "incomplete" },
+   const filterButtons = [
+    { title: "all", filter: "all", color: filter=== "all" ? "bg-blue-200" : "bg-gray-200" },
+    { title: "complete", filter: "complete" ,color: filter=== "complete" ? "bg-green-300" : "bg-blue-200" },
+    { title: "incomplete", filter: "incomplete" ,color: filter=== "incomplete" ?  "bg-blue-500" : "bg-blue-200"  },
   ];
 
   return (
@@ -34,17 +35,18 @@ const List = ({
             Todo List
           </h1>
           <div className="flex gap-4 mb-4">
-            {filterButtons.map((button) => (
+          {filterButtons.map((button) => (
               <Button
                 key={button.filter}
                 onSubmit={() => handleFilterClick(button.filter)}
                 title={button.title}
+                color={button.color}
               />
             ))}
           </div>
         </div>
       )}
-      <div className="h-[300px] overflow-y-scroll ">
+{ allTodos.length > 0 &&     <div className="h-[300px] overflow-y-scroll " >
         {visibleTodos.map((todo) => (
           <div key={todo.id}>
             <div
@@ -85,7 +87,7 @@ const List = ({
             </div>
           </div>
         ))}
-      </div>
+      </div>}
     </div>
   );
 };
