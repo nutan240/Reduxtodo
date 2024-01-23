@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Form from "../../component/Form";
 import List from "../../component/List";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
 import {
   addTodo,
   removeTodo,
@@ -13,6 +14,17 @@ function TodoApp() {
   const [editingId, setEditingId] = useState(null);
   const [error, setError] = useState(false);
   const dispatch = useDispatch();
+  const filter = useSelector((state) => state.todo.filter);
+  const todos = useSelector((state) => state.todo.todos);
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
+
+  useEffect(() => {
+    localStorage.setItem("filter", filter);
+  }, [filter]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (input.trim() !== "") {
@@ -20,6 +32,7 @@ function TodoApp() {
       setInput("");
     }
   };
+
   const handleDelete = (id) => {
     dispatch(removeTodo(id));
     setInput("");
