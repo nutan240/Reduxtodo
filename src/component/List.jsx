@@ -14,13 +14,10 @@ const List = ({
 }) => {
   const dispatch = useDispatch();
   const visibleTodos = useSelector(selectVisibleTodos);
-
-  const alltodos = useSelector((state) => state.todo.todos);
-  console.log(alltodos, "dfghjkl");
+  const allTodos = useSelector((state) => state.todo.todos);
 
   const handleFilterClick = (filter) => {
     dispatch(setFilter(filter));
-    console.log("Filter state after dispatch:", filter);
   };
 
   const filterButtons = [
@@ -31,7 +28,7 @@ const List = ({
 
   return (
     <div>
-      {alltodos.length > 0 && (
+      {allTodos.length > 0 && (
         <div>
           <h1 className="font-medium text-2xl mt-10 font-serif mb-1">
             Todo List
@@ -47,8 +44,7 @@ const List = ({
           </div>
         </div>
       )}
-
-      <div className="h-[300px] overflow-y-scroll  scrollbar-hide md:scrollbar-default" style={{msOverflowStyle:'none',scrollbarWidth:'none'}}>
+      <div className="h-[300px] overflow-y-scroll ">
         {visibleTodos.map((todo) => (
           <div key={todo.id}>
             <div
@@ -64,7 +60,6 @@ const List = ({
                 checked={todo.completed}
                 handleInputChange={() => handleCheckboxChange(todo.id)}
               />
-
               <div className="text-balance  truncate break-all w-[90%] ">
                 {todo.text}
               </div>
