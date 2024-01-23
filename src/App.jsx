@@ -1,9 +1,14 @@
-import React from 'react'
+
+import React from 'react';
+import TodoApp from './pages/todo/index';
 
 function App() {
+
   return (
-    <div className='text-red-400 bg-red-50'>App</div>
-  )
+    <div className='h-screen' >
+    <TodoApp/>
+    </div>
+  );
 }
 
-export default App
+export default App;
